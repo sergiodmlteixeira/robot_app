@@ -1,0 +1,12 @@
+language: generic
+services:
+  - docker
+
+env:
+  matrix:
+    - ROS_DISTRO="melodic" BUNDLE_WORKSPACE="ws:target_ws" TEST_WITH_ROBOMAKER="true" BUILDER="colcon" MAX_JOB_DURATION=300 IAM_ROLE=$IAM_ROLE ROBOT_APPLICATIONS=$ROBOT_APPLICATIONS SIMULATION_APPLICATIONS=$SIMULATION_APPLICATIONS ANALYSIS_SCRIPT=".ci_scripts/analysis_script.sh" AWS_ACCESS_KEY=$AWS_ACCESS_KEY AWS_SECRET_KEY=$AWS_SECRET_KEY AWS_REGION=$AWS_REGION AWS_BUNDLE_BUCKET=$AWS_BUNDLE_BUCKET ADDITIONAL_DEBS="curl unzip less python3-pip python3-apt"
+
+install:
+  - git clone --quiet --depth 1 https://github.com/sergiodmlteixeira/industrial_ci.git .industrial_ci -b master
+script:
+  - .industrial_ci/travis.sh
